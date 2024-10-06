@@ -20,7 +20,12 @@ export default function HomeLayout() {
 
       <Stack.Screen
         name="accountmanagement"
-        options={{ title: 'My Account' }}
+        options={{ title: 'My Account',
+          headerStyle: { backgroundColor: '#97BCFE' }, 
+          headerTintColor: "#fff", 
+          headerTitleStyle: { fontWeight: 'bold' }, 
+          headerBackTitle: 'Back', 
+        }}
       />
     </Stack>
   );

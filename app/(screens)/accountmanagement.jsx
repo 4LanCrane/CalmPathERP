@@ -1,6 +1,15 @@
-import React, { useState } from 'react';
-import { SafeAreaView, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { getAuth, signOut, updatePassword } from 'firebase/auth';
+import React, { useState } from 'react';
+import {
+  SafeAreaView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+} from 'react-native'
+
+import colors from '../../constants/colors';
 
 export default function AccountManagement() {
   const [newPassword, setNewPassword] = useState('');
@@ -11,7 +20,6 @@ export default function AccountManagement() {
     try {
       await signOut(auth);
       Alert.alert('Logged out successfully!');
-      // Optionally, navigate to the login screen or another appropriate screen
     } catch (error) {
       Alert.alert('Error:', error.message);
     }
@@ -25,7 +33,7 @@ export default function AccountManagement() {
 
     try {
       await updatePassword(user, newPassword);
-      Alert.alert('Password updated successfully!');
+      Alert.alert('Password updated!');
       setNewPassword('');
     } catch (error) {
       Alert.alert('Error:', error.message);
@@ -57,13 +65,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
-    backgroundColor: 'white',
+    backgroundColor: colors.primary,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 24,
+    color: 'white',
   },
   input: {
     height: 50,
@@ -74,9 +83,10 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     width: '80%',
     alignSelf: 'center',
+    backgroundColor: 'white',
   },
   button: {
-    backgroundColor: '#007BFF',
+    backgroundColor: colors.secondary,
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: 'center',
@@ -85,7 +95,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   buttonText: {
-    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },

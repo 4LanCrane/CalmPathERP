@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import { useRouter } from 'expo-router'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import React, { useState } from 'react'
+import colors from '../../constants/colors'
 import {
   SafeAreaView,
   Text,
@@ -6,56 +9,60 @@ import {
   Alert,
   StyleSheet,
   TouchableOpacity,
-} from 'react-native';
-import { useRouter } from 'expo-router';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebaseConfig'; // Adjust the path as necessary
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native'
+
+import ClearPathLogo from '../../assets/ClearpathLogo.png'
+import { auth } from '../../firebaseConfig'
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const router = useRouter();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const router = useRouter()
 
   const handleLogin = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      Alert.alert('Logged in successfully!');
+      await signInWithEmailAndPassword(auth, email, password)
     } catch (loginError) {
-      Alert.alert('Login Error:', loginError.message);
+      Alert.alert('Login Error:', loginError.message)
     }
-  };
+  }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>CalmPathERP - Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Log In</Text>
-      </TouchableOpacity>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}>
+      <SafeAreaView style={styles.container}>
+        <Image source={ClearPathLogo} style={styles.logo} />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Log In</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => router.navigate('register')}
-      >
-        <Text style={styles.buttonText}>Create An Account</Text>
-      </TouchableOpacity>
-
-    </SafeAreaView>
-  );
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.navigate('register')}>
+          <Text style={styles.buttonText}>Create An Account</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -63,7 +70,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
-    backgroundColor: 'white',
+    backgroundColor: colors.primary,
   },
   title: {
     fontSize: 24,
@@ -80,9 +87,10 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     width: '80%',
     alignSelf: 'center',
+    backgroundColor: 'white',
   },
   button: {
-    backgroundColor: '#007BFF',
+    backgroundColor: colors.secondary,
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: 'center',
@@ -91,8 +99,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   buttonText: {
-    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },
-});
+
+  logo: {
+    width: 200,
+    height: 200,
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
+})

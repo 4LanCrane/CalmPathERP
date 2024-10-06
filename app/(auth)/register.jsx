@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import React, { useState } from 'react'
 import {
   SafeAreaView,
   Text,
@@ -6,36 +7,40 @@ import {
   Alert,
   StyleSheet,
   TouchableOpacity,
-} from 'react-native';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebaseConfig'; // Adjust the path as necessary
+  Image,
+} from 'react-native'
+
+import colors from '../../constants/colors'
+import ClearPathLogo from '../../assets/ClearpathLogo.png'
+
+import { auth } from '../../firebaseConfig'
 
 export default function Register() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   const handleSignUp = async () => {
     if (password !== confirmPassword) {
-      Alert.alert('Error:', 'Passwords do not match.');
-      return;
+      Alert.alert('Error:', 'Passwords do not match.')
+      return
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      Alert.alert('User created successfully!');
+      await createUserWithEmailAndPassword(auth, email, password)
+      Alert.alert('User created successfully!')
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
-        Alert.alert('Error:', 'Email already in use. Please log in.');
+        Alert.alert('Error:', 'Email already in use. Please log in.')
       } else {
-        Alert.alert('Error:', error.message);
+        Alert.alert('Error:', error.message)
       }
     }
-  };
+  }
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>CalmPathERP - Register</Text>
+      <Image source={ClearPathLogo} style={styles.logo} />
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -62,7 +67,7 @@ export default function Register() {
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -70,13 +75,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
-    backgroundColor: 'white',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 24,
+    backgroundColor: colors.primary,
   },
   input: {
     height: 50,
@@ -87,9 +86,10 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     width: '80%',
     alignSelf: 'center',
+    backgroundColor: '#fff',
   },
   button: {
-    backgroundColor: '#007BFF',
+    backgroundColor: colors.secondary,
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: 'center',
@@ -98,8 +98,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   buttonText: {
-    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },
-});
+  logo: {
+    width: 200,
+    height: 200,
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
+})

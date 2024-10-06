@@ -7,7 +7,7 @@ export default function RootLayout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const auth = getAuth(); // Initialize the auth object
+  const auth = getAuth(); 
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {

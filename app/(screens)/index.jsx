@@ -1,8 +1,8 @@
+import { useRouter } from 'expo-router'
 import { ScrollView, StyleSheet, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import NavButton from '../../components/home/navButton'
-import { Stack, useRouter} from 'expo-router';
 
+import NavButton from '../../components/home/navButton'
+import colors from '../../constants/colors';
 
 export default function Home() {
   const router = useRouter();
@@ -10,7 +10,6 @@ export default function Home() {
     <>
       <View style={styles.container}>
         <ScrollView contentInsetAdjustmentBehavior="automatic">
-    
           <NavButton
             title="Account Management"
             onPress={() => router.navigate('accountmanagement')}
@@ -26,7 +25,6 @@ export default function Home() {
           <NavButton />
           <NavButton />
           <NavButton />
-        
         </ScrollView>
       </View>
     </>
@@ -36,6 +34,6 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#97BCFE',
+    backgroundColor: colors.primary,
   },
 });

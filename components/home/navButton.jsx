@@ -11,18 +11,18 @@ const NavButton = ({ onPress = () => null, title = 'Button' }) => {
 
 const styles = StyleSheet.create({
   appButtonContainer: {
-    backgroundColor: '#007BFF',
-    elevation: 20,
-    flexBasis : '30%',
-    margin: 5,
+    backgroundColor: 'white',
+    margin:5,
     alignItems: 'center',
-    height: 240,
     justifyContent: 'center',
-    borderRadius: 15,
-    
+    borderRadius: 35,
+    padding: 10,
+    width: '95%',
+    alignSelf: 'center',
+    height: 100,
   },
   appButtonText: {
-    color: 'white',
+    color: 'black',
     fontSize: 18,
   },
 });

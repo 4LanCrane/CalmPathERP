@@ -18,15 +18,15 @@ import ClearPathLogo from '../../assets/ClearpathLogo.png'
 import { auth } from '../../firebaseConfig'
 
 export default function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const router = useRouter()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handleLogin = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password)
+      await signInWithEmailAndPassword(auth, email, password);
     } catch (loginError) {
-      Alert.alert('Login Error:', loginError.message)
+      Alert.alert('Login Error:', loginError.message);
     }
   }
 

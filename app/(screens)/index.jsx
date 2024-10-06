@@ -1,14 +1,16 @@
 import { StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import NavButton from '../../components/home/navButton'
+import { Stack, useRouter} from 'expo-router';
 
-import NavButton from '../components/home/navButton'
 
 export default function Home() {
+  const router = useRouter();
   return (
     <>
       <SafeAreaView>
         <View style={styles.navButtonContainer}>
-          <NavButton title="test" onPress={() => null} />
+        <NavButton title="Account" onPress={() => router.navigate("test")} />
           <NavButton title="test 2" onPress={() => null}/>
           <NavButton />
           <NavButton />

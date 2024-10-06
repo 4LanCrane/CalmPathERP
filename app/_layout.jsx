@@ -3,29 +3,27 @@ import React, { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { ActivityIndicator, View } from 'react-native';
 
-export default function Layout() {
+export default function RootLayout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const auth = getAuth(); // Initialize the auth object
 
-  // if the user is logged in, set isLoggedIn to true
   useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, user => {
       setIsLoggedIn(!!user);
       setLoading(false);
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [auth]);
 
-  //
   useEffect(() => {
-    if (!loading && !isLoggedIn) {
-      try {
-        router.replace('/authpage');
-      } catch (err) {
-        console.error('Failed to navigate to authpage:', err);
+    if (!loading) {
+      if (isLoggedIn) {
+        router.replace('/(screens)');
+      } else {
+        router.replace('/(auth)');
       }
     }
   }, [loading, isLoggedIn, router]);
@@ -40,7 +38,8 @@ export default function Layout() {
 
   return (
     <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+      <Stack.Screen name="(screens)" options={{ headerShown: false }} />
     </Stack>
   );
 }

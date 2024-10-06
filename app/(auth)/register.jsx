@@ -1,7 +1,3 @@
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from 'firebase/auth'
 import React, { useState } from 'react';
 import {
   SafeAreaView,
@@ -10,16 +6,21 @@ import {
   Alert,
   StyleSheet,
   TouchableOpacity,
-} from 'react-native'
+} from 'react-native';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebaseConfig'; // Adjust the path as necessary
 
-import { auth } from '../firebaseConfig'; // Import the auth object
-
-
-export default function CreateUser() {
+export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSignUp = async () => {
+    if (password !== confirmPassword) {
+      Alert.alert('Error:', 'Passwords do not match.');
+      return;
+    }
+
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       Alert.alert('User created successfully!');
@@ -32,18 +33,9 @@ export default function CreateUser() {
     }
   };
 
-  const handleLogin = async () => {
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      Alert.alert('Logged in successfully!');
-    } catch (loginError) {
-      Alert.alert('Login Error:', loginError.message);
-    }
-  };
-
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>CalmPathERP</Text>
+      <Text style={styles.title}>CalmPathERP - Register</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -59,11 +51,15 @@ export default function CreateUser() {
         onChangeText={setPassword}
         secureTextEntry
       />
+      <TextInput
+        style={styles.input}
+        placeholder="Confirm Password"
+        value={confirmPassword}
+        onChangeText={setConfirmPassword}
+        secureTextEntry
+      />
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText}>Sign Up</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Log In</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

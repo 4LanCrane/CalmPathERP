@@ -27,6 +27,18 @@ export default function HomeLayout() {
           headerBackTitle: 'Back', 
         }}
       />
+
+      <Stack.Screen
+        name="startanexersice"
+        options={{ title: 'test',
+          headerStyle: { backgroundColor: '#97BCFE' }, 
+          headerTintColor: "#fff", 
+          headerTitleStyle: { fontWeight: 'bold' }, 
+          headerBackTitle: 'Back', 
+        }}
+      />
+
+
     </Stack>
   );
 }

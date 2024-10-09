@@ -11,20 +11,19 @@ export default function Home() {
       <View style={styles.container}>
         <ScrollView contentInsetAdjustmentBehavior="automatic">
           <NavButton
+            title="Start An Exercise"
+            onPress={() => router.navigate('startanexersice')}
+          />
+          <NavButton title="What Is ERP" onPress={() => null}/>
+          <NavButton title="Medals" onPress={() => null}/>
+          <NavButton title="Fear Ladder" onPress={() => null}/>
+          <NavButton title="Victory Log" onPress={() => null}/>
+          <NavButton title="Progress" onPress={() => null}/>
+          <NavButton
             title="Account Management"
             onPress={() => router.navigate('accountmanagement')}
           />
-          <NavButton title="test 2" onPress={() => null}/>
-          <NavButton />
-          <NavButton />
-          <NavButton />
-          <NavButton />
-          <NavButton />
-          <NavButton />
-          <NavButton />
-          <NavButton />
-          <NavButton />
-          <NavButton />
+       
         </ScrollView>
       </View>
     </>
